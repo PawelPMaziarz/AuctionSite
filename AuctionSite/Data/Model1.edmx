@@ -1,0 +1,2037 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AuctionSiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="idAddress" />
+          </Key>
+          <Property Name="idAddress" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="phoneNo" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="apartment" Type="varchar" MaxLength="10" />
+          <Property Name="building" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="town" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="postCode" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Auction">
+          <Key>
+            <PropertyRef Name="idAuction" />
+          </Key>
+          <Property Name="idAuction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUserSeller" Type="int" Nullable="false" />
+          <Property Name="idProductCategory" Type="int" Nullable="false" />
+          <Property Name="creationDate" Type="datetime" Nullable="false" />
+          <Property Name="endDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuctionDescription">
+          <Key>
+            <PropertyRef Name="idAuctionDescription" />
+          </Key>
+          <Property Name="idAuctionDescription" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAuction" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="startingBiddingPrice" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="buyNowPrice" Type="decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="BiddingOffer">
+          <Key>
+            <PropertyRef Name="idBiddingOffer" />
+          </Key>
+          <Property Name="idBiddingOffer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAuction" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChatAuction">
+          <Key>
+            <PropertyRef Name="idChatAuction" />
+          </Key>
+          <Property Name="idChatAuction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAuction" Type="int" Nullable="false" />
+          <Property Name="idUserSender" Type="int" Nullable="false" />
+          <Property Name="idUserReciver" Type="int" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChatReport">
+          <Key>
+            <PropertyRef Name="idChatReport" />
+          </Key>
+          <Property Name="idChatReport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idReport" Type="int" Nullable="false" />
+          <Property Name="idUserSender" Type="int" Nullable="false" />
+          <Property Name="idUserReciver" Type="int" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeliveryMethod">
+          <Key>
+            <PropertyRef Name="idDeliveryMethod" />
+          </Key>
+          <Property Name="idDeliveryMethod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fee" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="idLogin" />
+          </Key>
+          <Property Name="idLogin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="device" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="idPaymentMethod" />
+          </Key>
+          <Property Name="idPaymentMethod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="amountFee" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="percentageFee" Type="decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="idPermissions" />
+          </Key>
+          <Property Name="idPermissions" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Preferences">
+          <Key>
+            <PropertyRef Name="idPreferences" />
+          </Key>
+          <Property Name="idPreferences" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="darkMode" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="idProductCategory" />
+          </Key>
+          <Property Name="idProductCategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idParentCategory" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductPhoto">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAuction" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="photo" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="idPurchase" />
+          </Key>
+          <Property Name="idPurchase" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="idAuction" Type="int" Nullable="false" />
+          <Property Name="idPaymentMethod" Type="int" Nullable="false" />
+          <Property Name="idDeliveryMethod" Type="int" Nullable="false" />
+          <Property Name="idBuyerAddress" Type="int" Nullable="false" />
+          <Property Name="idSellerAddress" Type="int" Nullable="false" />
+          <Property Name="idPurchaseStatus" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="PurchaseStatus">
+          <Key>
+            <PropertyRef Name="idPurchaseStatus" />
+          </Key>
+          <Property Name="idPurchaseStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="idRating" />
+          </Key>
+          <Property Name="idRating" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="buyerService" Type="int" Nullable="false" />
+          <Property Name="trueDescription" Type="int" Nullable="false" />
+          <Property Name="shippingTime" Type="int" Nullable="false" />
+          <Property Name="idPurchase" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="idReport" />
+          </Key>
+          <Property Name="idReport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idReportCategory" Type="int" Nullable="false" />
+          <Property Name="idReportStatus" Type="int" Nullable="false" />
+          <Property Name="creationDate" Type="datetime" Nullable="false" />
+          <Property Name="endDate" Type="datetime" Nullable="false" />
+          <Property Name="idUserReporting" Type="int" Nullable="false" />
+          <Property Name="idAuctionReported" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportCategory">
+          <Key>
+            <PropertyRef Name="idReportCategory" />
+          </Key>
+          <Property Name="idReportCategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportStatus">
+          <Key>
+            <PropertyRef Name="idReportStatus" />
+          </Key>
+          <Property Name="idReportStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="char" MaxLength="64" Nullable="false" />
+          <Property Name="idDefaultAddress" Type="int" />
+          <Property Name="idPermissions" Type="int" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AuctionSite.dbo.AvargeUserRating' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AvargeUserRating">
+          <Key>
+            <PropertyRef Name="idUserSeller" />
+          </Key>
+          <Property Name="idUserSeller" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="101" />
+          <Property Name="BuyerService" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="TrueDescription" Type="decimal" Precision="38" Scale="6" />
+          <Property Name="ShippingTime" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AuctionSite.dbo.CityRanking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CityRanking">
+          <Key>
+            <PropertyRef Name="Town" />
+          </Key>
+          <Property Name="Town" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeliveredOrders" Type="int" />
+          <Property Name="ShippedOrdes" Type="int" />
+          <Property Name="Users" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AuctionSite.dbo.LatestAuctionDescription' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LatestAuctionDescription">
+          <Key>
+            <PropertyRef Name="idAuctionDescription" />
+            <PropertyRef Name="idAuction" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="title" />
+            <PropertyRef Name="description" />
+          </Key>
+          <Property Name="idAuctionDescription" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAuction" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="startingBiddingPrice" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="buyNowPrice" Type="decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <Association Name="FK_Address_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="idProductCategory" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="idProductCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="idUserSeller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionDescription_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuctionDescription" Type="Self.AuctionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="AuctionDescription">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BiddingOffer_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="BiddingOffer" Type="Self.BiddingOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="BiddingOffer">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BiddingOffer_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="BiddingOffer" Type="Self.BiddingOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="BiddingOffer">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatAuction_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="ChatAuction" Type="Self.ChatAuction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="ChatAuction">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatAuctionReciver_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ChatAuction" Type="Self.ChatAuction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatAuction">
+              <PropertyRef Name="idUserReciver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatAuctionSender_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ChatAuction" Type="Self.ChatAuction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatAuction">
+              <PropertyRef Name="idUserSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReport_Report">
+          <End Role="Report" Type="Self.Report" Multiplicity="1" />
+          <End Role="ChatReport" Type="Self.ChatReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="idReport" />
+            </Principal>
+            <Dependent Role="ChatReport">
+              <PropertyRef Name="idReport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReport_UserReciver">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ChatReport" Type="Self.ChatReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatReport">
+              <PropertyRef Name="idUserReciver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReport_UserSender">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ChatReport" Type="Self.ChatReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatReport">
+              <PropertyRef Name="idUserSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginHistory_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LoginHistory" Type="Self.LoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="LoginHistory">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preferences_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Preferences" Type="Self.Preferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Preferences">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCategory_ParentCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="0..1" />
+          <End Role="ProductCategory1" Type="Self.ProductCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="idProductCategory" />
+            </Principal>
+            <Dependent Role="ProductCategory1">
+              <PropertyRef Name="idParentCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductPhoto_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="ProductPhoto" Type="Self.ProductPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="ProductPhoto">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_DeliveryMethod">
+          <End Role="DeliveryMethod" Type="Self.DeliveryMethod" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryMethod">
+              <PropertyRef Name="idDeliveryMethod" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idDeliveryMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_PaymentMethod">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="idPaymentMethod" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idPaymentMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_PurchaseStatus">
+          <End Role="PurchaseStatus" Type="Self.PurchaseStatus" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseStatus">
+              <PropertyRef Name="idPurchaseStatus" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idPurchaseStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseDelivery_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idBuyerAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseShipping_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idSellerAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Purchase">
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="idPurchase" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="idPurchase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idAuctionReported" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_ReportCategory">
+          <End Role="ReportCategory" Type="Self.ReportCategory" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportCategory">
+              <PropertyRef Name="idReportCategory" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idReportCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_ReportStatus">
+          <End Role="ReportStatus" Type="Self.ReportStatus" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportStatus">
+              <PropertyRef Name="idReportStatus" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idReportStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idUserReporting" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="idDefaultAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Permissions">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="idPermissions" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="idPermissions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CreateAuction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user" Type="int" Mode="In" />
+          <Parameter Name="category" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="startingBiddingPrice" Type="decimal" Mode="In" />
+          <Parameter Name="buyNowPrice" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="CreateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="char" Mode="In" />
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="AuctionSiteModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auction" EntityType="Self.Auction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuctionDescription" EntityType="Self.AuctionDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BiddingOffer" EntityType="Self.BiddingOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatAuction" EntityType="Self.ChatAuction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatReport" EntityType="Self.ChatReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeliveryMethod" EntityType="Self.DeliveryMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preferences" EntityType="Self.Preferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPhoto" EntityType="Self.ProductPhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseStatus" EntityType="Self.PurchaseStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportCategory" EntityType="Self.ReportCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportStatus" EntityType="Self.ReportStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvargeUserRating" EntityType="Self.AvargeUserRating" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AvargeUserRating].[idUserSeller] AS [idUserSeller], 
+    [AvargeUserRating].[Name] AS [Name], 
+    [AvargeUserRating].[BuyerService] AS [BuyerService], 
+    [AvargeUserRating].[TrueDescription] AS [TrueDescription], 
+    [AvargeUserRating].[ShippingTime] AS [ShippingTime]
+    FROM [dbo].[AvargeUserRating] AS [AvargeUserRating]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CityRanking" EntityType="Self.CityRanking" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CityRanking].[Town] AS [Town], 
+    [CityRanking].[DeliveredOrders] AS [DeliveredOrders], 
+    [CityRanking].[ShippedOrdes] AS [ShippedOrdes], 
+    [CityRanking].[Users] AS [Users]
+    FROM [dbo].[CityRanking] AS [CityRanking]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LatestAuctionDescription" EntityType="Self.LatestAuctionDescription" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LatestAuctionDescription].[idAuctionDescription] AS [idAuctionDescription], 
+    [LatestAuctionDescription].[idAuction] AS [idAuction], 
+    [LatestAuctionDescription].[date] AS [date], 
+    [LatestAuctionDescription].[title] AS [title], 
+    [LatestAuctionDescription].[description] AS [description], 
+    [LatestAuctionDescription].[startingBiddingPrice] AS [startingBiddingPrice], 
+    [LatestAuctionDescription].[buyNowPrice] AS [buyNowPrice]
+    FROM [dbo].[LatestAuctionDescription] AS [LatestAuctionDescription]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Address_User" Association="Self.FK_Address_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_ProductCategory" Association="Self.FK_Auction_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="Auction" EntitySet="Auction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_User" Association="Self.FK_Auction_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Auction" EntitySet="Auction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionDescription_Auction" Association="Self.FK_AuctionDescription_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="AuctionDescription" EntitySet="AuctionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BiddingOffer_Auction" Association="Self.FK_BiddingOffer_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="BiddingOffer" EntitySet="BiddingOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BiddingOffer_User" Association="Self.FK_BiddingOffer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="BiddingOffer" EntitySet="BiddingOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatAuction_Auction" Association="Self.FK_ChatAuction_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="ChatAuction" EntitySet="ChatAuction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatAuctionReciver_User" Association="Self.FK_ChatAuctionReciver_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatAuction" EntitySet="ChatAuction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatAuctionSender_User" Association="Self.FK_ChatAuctionSender_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatAuction" EntitySet="ChatAuction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReport_Report" Association="Self.FK_ChatReport_Report">
+            <End Role="Report" EntitySet="Report" />
+            <End Role="ChatReport" EntitySet="ChatReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReport_UserReciver" Association="Self.FK_ChatReport_UserReciver">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatReport" EntitySet="ChatReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReport_UserSender" Association="Self.FK_ChatReport_UserSender">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatReport" EntitySet="ChatReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginHistory_User" Association="Self.FK_LoginHistory_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LoginHistory" EntitySet="LoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preferences_User" Association="Self.FK_Preferences_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Preferences" EntitySet="Preferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCategory_ParentCategory" Association="Self.FK_ProductCategory_ParentCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="ProductCategory1" EntitySet="ProductCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPhoto_Auction" Association="Self.FK_ProductPhoto_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="ProductPhoto" EntitySet="ProductPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Auction" Association="Self.FK_Purchase_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_DeliveryMethod" Association="Self.FK_Purchase_DeliveryMethod">
+            <End Role="DeliveryMethod" EntitySet="DeliveryMethod" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_PaymentMethod" Association="Self.FK_Purchase_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_PurchaseStatus" Association="Self.FK_Purchase_PurchaseStatus">
+            <End Role="PurchaseStatus" EntitySet="PurchaseStatus" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_User" Association="Self.FK_Purchase_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseDelivery_Address" Association="Self.FK_PurchaseDelivery_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseShipping_Address" Association="Self.FK_PurchaseShipping_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Purchase" Association="Self.FK_Rating_Purchase">
+            <End Role="Purchase" EntitySet="Purchase" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_Auction" Association="Self.FK_Report_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_ReportCategory" Association="Self.FK_Report_ReportCategory">
+            <End Role="ReportCategory" EntitySet="ReportCategory" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_ReportStatus" Association="Self.FK_Report_ReportStatus">
+            <End Role="ReportStatus" EntitySet="ReportStatus" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_User" Association="Self.FK_Report_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Permissions" Association="Self.FK_User_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AuctionSiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="idAddress" />
+          </Key>
+          <Property Name="idAddress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="phoneNo" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apartment" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="building" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="town" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PurchaseBuyer" Relationship="Self.FK_PurchaseDelivery_Address" FromRole="Address" ToRole="Purchase" />
+          <NavigationProperty Name="PurchaseSeller" Relationship="Self.FK_PurchaseShipping_Address" FromRole="Address" ToRole="Purchase" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_Address_User" FromRole="Address" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="AuctionSiteModel.FK_User_Address" FromRole="Address" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Auction">
+          <Key>
+            <PropertyRef Name="idAuction" />
+          </Key>
+          <Property Name="idAuction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUserSeller" Type="Int32" Nullable="false" />
+          <Property Name="idProductCategory" Type="Int32" Nullable="false" />
+          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Auction_ProductCategory" FromRole="Auction" ToRole="ProductCategory" />
+          <NavigationProperty Name="AuctionDescription" Relationship="Self.FK_AuctionDescription_Auction" FromRole="Auction" ToRole="AuctionDescription" />
+          <NavigationProperty Name="BiddingOffer" Relationship="Self.FK_BiddingOffer_Auction" FromRole="Auction" ToRole="BiddingOffer" />
+          <NavigationProperty Name="ChatAuction" Relationship="Self.FK_ChatAuction_Auction" FromRole="Auction" ToRole="ChatAuction" />
+          <NavigationProperty Name="ProductPhoto" Relationship="Self.FK_ProductPhoto_Auction" FromRole="Auction" ToRole="ProductPhoto" />
+          <NavigationProperty Name="Purchase" Relationship="AuctionSiteModel.FK_Purchase_Auction" FromRole="Auction" ToRole="Purchase" />
+          <NavigationProperty Name="Report" Relationship="Self.FK_Report_Auction" FromRole="Auction" ToRole="Report" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_Auction_User" FromRole="Auction" ToRole="User" />
+        </EntityType>
+        <EntityType Name="AuctionDescription">
+          <Key>
+            <PropertyRef Name="idAuctionDescription" />
+          </Key>
+          <Property Name="idAuctionDescription" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAuction" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="startingBiddingPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="buyNowPrice" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_AuctionDescription_Auction" FromRole="AuctionDescription" ToRole="Auction" />
+        </EntityType>
+        <EntityType Name="BiddingOffer">
+          <Key>
+            <PropertyRef Name="idBiddingOffer" />
+          </Key>
+          <Property Name="idBiddingOffer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAuction" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_BiddingOffer_Auction" FromRole="BiddingOffer" ToRole="Auction" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_BiddingOffer_User" FromRole="BiddingOffer" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ChatAuction">
+          <Key>
+            <PropertyRef Name="idChatAuction" />
+          </Key>
+          <Property Name="idChatAuction" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAuction" Type="Int32" Nullable="false" />
+          <Property Name="idUserSender" Type="Int32" Nullable="false" />
+          <Property Name="idUserReciver" Type="Int32" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_ChatAuction_Auction" FromRole="ChatAuction" ToRole="Auction" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_ChatAuctionReciver_User" FromRole="ChatAuction" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="AuctionSiteModel.FK_ChatAuctionSender_User" FromRole="ChatAuction" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ChatReport">
+          <Key>
+            <PropertyRef Name="idChatReport" />
+          </Key>
+          <Property Name="idChatReport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idReport" Type="Int32" Nullable="false" />
+          <Property Name="idUserSender" Type="Int32" Nullable="false" />
+          <Property Name="idUserReciver" Type="Int32" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Report" Relationship="Self.FK_ChatReport_Report" FromRole="ChatReport" ToRole="Report" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_ChatReport_UserReciver" FromRole="ChatReport" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="AuctionSiteModel.FK_ChatReport_UserSender" FromRole="ChatReport" ToRole="User" />
+        </EntityType>
+        <EntityType Name="DeliveryMethod">
+          <Key>
+            <PropertyRef Name="idDeliveryMethod" />
+          </Key>
+          <Property Name="idDeliveryMethod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Purchase" Relationship="Self.FK_Purchase_DeliveryMethod" FromRole="DeliveryMethod" ToRole="Purchase" />
+        </EntityType>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="idLogin" />
+          </Key>
+          <Property Name="idLogin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="device" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_LoginHistory_User" FromRole="LoginHistory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="idPaymentMethod" />
+          </Key>
+          <Property Name="idPaymentMethod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="amountFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="percentageFee" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Purchase" Relationship="Self.FK_Purchase_PaymentMethod" FromRole="PaymentMethod" ToRole="Purchase" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="idPermissions" />
+          </Key>
+          <Property Name="idPermissions" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_User_Permissions" FromRole="Permissions" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Preferences">
+          <Key>
+            <PropertyRef Name="idPreferences" />
+          </Key>
+          <Property Name="idPreferences" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="darkMode" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_Preferences_User" FromRole="Preferences" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="idProductCategory" />
+          </Key>
+          <Property Name="idProductCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idParentCategory" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_Auction_ProductCategory" FromRole="ProductCategory" ToRole="Auction" />
+          <NavigationProperty Name="Subcategories" Relationship="Self.FK_ProductCategory_ParentCategory" FromRole="ProductCategory" ToRole="ProductCategory1" />
+          <NavigationProperty Name="ParentCategory" Relationship="Self.FK_ProductCategory_ParentCategory" FromRole="ProductCategory1" ToRole="ProductCategory" />
+        </EntityType>
+        <EntityType Name="ProductPhoto">
+          <Key>
+            <PropertyRef Name="idPhoto" />
+          </Key>
+          <Property Name="idPhoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAuction" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_ProductPhoto_Auction" FromRole="ProductPhoto" ToRole="Auction" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="idPurchase" />
+          </Key>
+          <Property Name="idPurchase" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="idAuction" Type="Int32" Nullable="false" />
+          <Property Name="idPaymentMethod" Type="Int32" Nullable="false" />
+          <Property Name="idDeliveryMethod" Type="Int32" Nullable="false" />
+          <Property Name="idBuyerAddress" Type="Int32" Nullable="false" />
+          <Property Name="idSellerAddress" Type="Int32" Nullable="false" />
+          <Property Name="idPurchaseStatus" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="AddressBuyer" Relationship="Self.FK_PurchaseDelivery_Address" FromRole="Purchase" ToRole="Address" />
+          <NavigationProperty Name="AddressSeller" Relationship="Self.FK_PurchaseShipping_Address" FromRole="Purchase" ToRole="Address" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_Purchase_Auction" FromRole="Purchase" ToRole="Auction" />
+          <NavigationProperty Name="DeliveryMethod" Relationship="Self.FK_Purchase_DeliveryMethod" FromRole="Purchase" ToRole="DeliveryMethod" />
+          <NavigationProperty Name="PaymentMethod" Relationship="Self.FK_Purchase_PaymentMethod" FromRole="Purchase" ToRole="PaymentMethod" />
+          <NavigationProperty Name="PurchaseStatus" Relationship="Self.FK_Purchase_PurchaseStatus" FromRole="Purchase" ToRole="PurchaseStatus" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_Purchase_User" FromRole="Purchase" ToRole="User" />
+          <NavigationProperty Name="Rating" Relationship="AuctionSiteModel.FK_Rating_Purchase" FromRole="Purchase" ToRole="Rating" />
+        </EntityType>
+        <EntityType Name="PurchaseStatus">
+          <Key>
+            <PropertyRef Name="idPurchaseStatus" />
+          </Key>
+          <Property Name="idPurchaseStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Purchase" Relationship="Self.FK_Purchase_PurchaseStatus" FromRole="PurchaseStatus" ToRole="Purchase" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="idReport" />
+          </Key>
+          <Property Name="idReport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idReportCategory" Type="Int32" Nullable="false" />
+          <Property Name="idReportStatus" Type="Int32" Nullable="false" />
+          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idUserReporting" Type="Int32" Nullable="false" />
+          <Property Name="idAuctionReported" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_Report_Auction" FromRole="Report" ToRole="Auction" />
+          <NavigationProperty Name="ChatReport" Relationship="Self.FK_ChatReport_Report" FromRole="Report" ToRole="ChatReport" />
+          <NavigationProperty Name="ReportCategory" Relationship="Self.FK_Report_ReportCategory" FromRole="Report" ToRole="ReportCategory" />
+          <NavigationProperty Name="ReportStatus" Relationship="Self.FK_Report_ReportStatus" FromRole="Report" ToRole="ReportStatus" />
+          <NavigationProperty Name="User" Relationship="AuctionSiteModel.FK_Report_User" FromRole="Report" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ReportCategory">
+          <Key>
+            <PropertyRef Name="idReportCategory" />
+          </Key>
+          <Property Name="idReportCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="Self.FK_Report_ReportCategory" FromRole="ReportCategory" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="ReportStatus">
+          <Key>
+            <PropertyRef Name="idReportStatus" />
+          </Key>
+          <Property Name="idReportStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="Self.FK_Report_ReportStatus" FromRole="ReportStatus" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="CityRanking">
+          <Key>
+            <PropertyRef Name="Town" />
+          </Key>
+          <Property Name="Town" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeliveredOrders" Type="Int32" />
+          <Property Name="ShippedOrdes" Type="Int32" />
+          <Property Name="Users" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LatestAuctionDescription">
+          <Key>
+            <PropertyRef Name="idAuctionDescription" />
+            <PropertyRef Name="idAuction" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="title" />
+            <PropertyRef Name="description" />
+          </Key>
+          <Property Name="idAuctionDescription" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAuction" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="startingBiddingPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="buyNowPrice" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <Association Name="FK_PurchaseDelivery_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idBuyerAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseShipping_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idSellerAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_ProductCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="1" />
+          <End Role="Auction" Type="Self.Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="idProductCategory" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="idProductCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuctionDescription_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="AuctionDescription" Type="Self.AuctionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="AuctionDescription">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BiddingOffer_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="BiddingOffer" Type="Self.BiddingOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="BiddingOffer">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatAuction_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="ChatAuction" Type="Self.ChatAuction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="ChatAuction">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductPhoto_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="ProductPhoto" Type="Self.ProductPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="ProductPhoto">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idAuction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="idAuction" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idAuctionReported" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReport_Report">
+          <End Role="Report" Type="Self.Report" Multiplicity="1" />
+          <End Role="ChatReport" Type="Self.ChatReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="idReport" />
+            </Principal>
+            <Dependent Role="ChatReport">
+              <PropertyRef Name="idReport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_DeliveryMethod">
+          <End Role="DeliveryMethod" Type="Self.DeliveryMethod" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryMethod">
+              <PropertyRef Name="idDeliveryMethod" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idDeliveryMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_PaymentMethod">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="idPaymentMethod" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idPaymentMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductCategory_ParentCategory">
+          <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="0..1" />
+          <End Role="ProductCategory1" Type="Self.ProductCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductCategory">
+              <PropertyRef Name="idProductCategory" />
+            </Principal>
+            <Dependent Role="ProductCategory1">
+              <PropertyRef Name="idParentCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_PurchaseStatus">
+          <End Role="PurchaseStatus" Type="Self.PurchaseStatus" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseStatus">
+              <PropertyRef Name="idPurchaseStatus" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idPurchaseStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_ReportCategory">
+          <End Role="ReportCategory" Type="Self.ReportCategory" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportCategory">
+              <PropertyRef Name="idReportCategory" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idReportCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_ReportStatus">
+          <End Role="ReportStatus" Type="Self.ReportStatus" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportStatus">
+              <PropertyRef Name="idReportStatus" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idReportStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AuctionSiteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Address" EntityType="Self.Address" />
+          <EntitySet Name="Auction" EntityType="Self.Auction" />
+          <EntitySet Name="AuctionDescription" EntityType="Self.AuctionDescription" />
+          <EntitySet Name="BiddingOffer" EntityType="Self.BiddingOffer" />
+          <EntitySet Name="ChatAuction" EntityType="Self.ChatAuction" />
+          <EntitySet Name="ChatReport" EntityType="Self.ChatReport" />
+          <EntitySet Name="DeliveryMethod" EntityType="Self.DeliveryMethod" />
+          <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" />
+          <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" />
+          <EntitySet Name="Preferences" EntityType="Self.Preferences" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" />
+          <EntitySet Name="ProductPhoto" EntityType="Self.ProductPhoto" />
+          <EntitySet Name="Purchase" EntityType="Self.Purchase" />
+          <EntitySet Name="PurchaseStatus" EntityType="Self.PurchaseStatus" />
+          <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="ReportCategory" EntityType="Self.ReportCategory" />
+          <EntitySet Name="ReportStatus" EntityType="Self.ReportStatus" />
+          <EntitySet Name="CityRanking" EntityType="Self.CityRanking" />
+          <EntitySet Name="LatestAuctionDescription" EntityType="Self.LatestAuctionDescription" />
+          <AssociationSet Name="FK_PurchaseDelivery_Address" Association="Self.FK_PurchaseDelivery_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseShipping_Address" Association="Self.FK_PurchaseShipping_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_ProductCategory" Association="Self.FK_Auction_ProductCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="Auction" EntitySet="Auction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuctionDescription_Auction" Association="Self.FK_AuctionDescription_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="AuctionDescription" EntitySet="AuctionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BiddingOffer_Auction" Association="Self.FK_BiddingOffer_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="BiddingOffer" EntitySet="BiddingOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatAuction_Auction" Association="Self.FK_ChatAuction_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="ChatAuction" EntitySet="ChatAuction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPhoto_Auction" Association="Self.FK_ProductPhoto_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="ProductPhoto" EntitySet="ProductPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Auction" Association="Self.FK_Purchase_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_Auction" Association="Self.FK_Report_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReport_Report" Association="Self.FK_ChatReport_Report">
+            <End Role="Report" EntitySet="Report" />
+            <End Role="ChatReport" EntitySet="ChatReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_DeliveryMethod" Association="Self.FK_Purchase_DeliveryMethod">
+            <End Role="DeliveryMethod" EntitySet="DeliveryMethod" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_PaymentMethod" Association="Self.FK_Purchase_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCategory_ParentCategory" Association="Self.FK_ProductCategory_ParentCategory">
+            <End Role="ProductCategory" EntitySet="ProductCategory" />
+            <End Role="ProductCategory1" EntitySet="ProductCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_PurchaseStatus" Association="Self.FK_Purchase_PurchaseStatus">
+            <End Role="PurchaseStatus" EntitySet="PurchaseStatus" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_ReportCategory" Association="Self.FK_Report_ReportCategory">
+            <End Role="ReportCategory" EntitySet="ReportCategory" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_ReportStatus" Association="Self.FK_Report_ReportStatus">
+            <End Role="ReportStatus" EntitySet="ReportStatus" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <FunctionImport Name="CreateUser" ReturnType="Collection(AuctionSiteModel.CreateUser_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(AuctionSiteModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(AuctionSiteModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="CreateAuction" ReturnType="Collection(AuctionSiteModel.CreateAuction_Result)">
+            <Parameter Name="user" Mode="In" Type="Int32" />
+            <Parameter Name="category" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="startingBiddingPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="buyNowPrice" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="sysdiagrams" EntityType="AuctionSiteModel.sysdiagrams" />
+          <EntitySet Name="AvargeUserRating" EntityType="AuctionSiteModel.AvargeUserRating" />
+          <EntitySet Name="Rating" EntityType="AuctionSiteModel.Rating" />
+          <EntitySet Name="User" EntityType="AuctionSiteModel.User" />
+          <AssociationSet Name="FK_Address_User" Association="AuctionSiteModel.FK_Address_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Address" Association="AuctionSiteModel.FK_User_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auction_User" Association="AuctionSiteModel.FK_Auction_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Auction" EntitySet="Auction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BiddingOffer_User" Association="AuctionSiteModel.FK_BiddingOffer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="BiddingOffer" EntitySet="BiddingOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatAuctionReciver_User" Association="AuctionSiteModel.FK_ChatAuctionReciver_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatAuction" EntitySet="ChatAuction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatAuctionSender_User" Association="AuctionSiteModel.FK_ChatAuctionSender_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatAuction" EntitySet="ChatAuction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReport_UserReciver" Association="AuctionSiteModel.FK_ChatReport_UserReciver">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatReport" EntitySet="ChatReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatReport_UserSender" Association="AuctionSiteModel.FK_ChatReport_UserSender">
+            <End Role="User" EntitySet="User" />
+            <End Role="ChatReport" EntitySet="ChatReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginHistory_User" Association="AuctionSiteModel.FK_LoginHistory_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LoginHistory" EntitySet="LoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Permissions" Association="AuctionSiteModel.FK_User_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preferences_User" Association="AuctionSiteModel.FK_Preferences_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Preferences" EntitySet="Preferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_User" Association="AuctionSiteModel.FK_Purchase_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Purchase" Association="AuctionSiteModel.FK_Rating_Purchase">
+            <End Role="Purchase" EntitySet="Purchase" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_User" Association="AuctionSiteModel.FK_Report_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+        </EntityContainer>
+        <ComplexType Name="CreateUser_Result">
+          <Property Type="Int32" Name="code" Nullable="false" />
+          <Property Type="String" Name="message" Nullable="false" MaxLength="28" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="CreateAuction_Result">
+          <Property Type="Int32" Name="code" Nullable="false" />
+          <Property Type="String" Name="message" Nullable="false" MaxLength="22" />
+        </ComplexType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AvargeUserRating">
+          <Key>
+            <PropertyRef Name="idUserSeller" />
+          </Key>
+          <Property Name="idUserSeller" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="101" FixedLength="false" Unicode="false" />
+          <Property Name="BuyerService" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="TrueDescription" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="ShippingTime" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="idRating" />
+          </Key>
+          <Property Name="idRating" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="buyerService" Type="Int32" Nullable="false" />
+          <Property Name="trueDescription" Type="Int32" Nullable="false" />
+          <Property Name="shippingTime" Type="Int32" Nullable="false" />
+          <Property Name="idPurchase" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Purchase" Relationship="AuctionSiteModel.FK_Rating_Purchase" FromRole="Rating" ToRole="Purchase" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="64" FixedLength="true" Unicode="false" />
+          <Property Name="idDefaultAddress" Type="Int32" />
+          <Property Name="idPermissions" Type="Int32" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Addresses" Relationship="AuctionSiteModel.FK_Address_User" FromRole="User" ToRole="Address" />
+          <NavigationProperty Name="DefaultAddress" Relationship="AuctionSiteModel.FK_User_Address" FromRole="User" ToRole="Address" />
+          <NavigationProperty Name="Auction" Relationship="AuctionSiteModel.FK_Auction_User" FromRole="User" ToRole="Auction" />
+          <NavigationProperty Name="BiddingOffer" Relationship="AuctionSiteModel.FK_BiddingOffer_User" FromRole="User" ToRole="BiddingOffer" />
+          <NavigationProperty Name="ChatAuction" Relationship="AuctionSiteModel.FK_ChatAuctionReciver_User" FromRole="User" ToRole="ChatAuction" />
+          <NavigationProperty Name="ChatAuction1" Relationship="AuctionSiteModel.FK_ChatAuctionSender_User" FromRole="User" ToRole="ChatAuction" />
+          <NavigationProperty Name="ChatReport" Relationship="AuctionSiteModel.FK_ChatReport_UserReciver" FromRole="User" ToRole="ChatReport" />
+          <NavigationProperty Name="ChatReport1" Relationship="AuctionSiteModel.FK_ChatReport_UserSender" FromRole="User" ToRole="ChatReport" />
+          <NavigationProperty Name="LoginHistory" Relationship="AuctionSiteModel.FK_LoginHistory_User" FromRole="User" ToRole="LoginHistory" />
+          <NavigationProperty Name="Permissions" Relationship="AuctionSiteModel.FK_User_Permissions" FromRole="User" ToRole="Permissions" />
+          <NavigationProperty Name="Preferences" Relationship="AuctionSiteModel.FK_Preferences_User" FromRole="User" ToRole="Preferences" />
+          <NavigationProperty Name="Purchase" Relationship="AuctionSiteModel.FK_Purchase_User" FromRole="User" ToRole="Purchase" />
+          <NavigationProperty Name="Report" Relationship="AuctionSiteModel.FK_Report_User" FromRole="User" ToRole="Report" />
+        </EntityType>
+        <Association Name="FK_Address_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Address">
+          <End Type="AuctionSiteModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="idAddress" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="idDefaultAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auction_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.Auction" Role="Auction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Auction">
+              <PropertyRef Name="idUserSeller" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BiddingOffer_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.BiddingOffer" Role="BiddingOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="BiddingOffer">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatAuctionReciver_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.ChatAuction" Role="ChatAuction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatAuction">
+              <PropertyRef Name="idUserReciver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatAuctionSender_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.ChatAuction" Role="ChatAuction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatAuction">
+              <PropertyRef Name="idUserSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReport_UserReciver">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.ChatReport" Role="ChatReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatReport">
+              <PropertyRef Name="idUserReciver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatReport_UserSender">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.ChatReport" Role="ChatReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="ChatReport">
+              <PropertyRef Name="idUserSender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginHistory_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.LoginHistory" Role="LoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="LoginHistory">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Permissions">
+          <End Type="AuctionSiteModel.Permissions" Role="Permissions" Multiplicity="1" />
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="idPermissions" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="idPermissions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preferences_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.Preferences" Role="Preferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Preferences">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Purchase">
+          <End Type="AuctionSiteModel.Purchase" Role="Purchase" Multiplicity="1" />
+          <End Type="AuctionSiteModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="idPurchase" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="idPurchase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_User">
+          <End Type="AuctionSiteModel.User" Role="User" Multiplicity="1" />
+          <End Type="AuctionSiteModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="idUserReporting" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AuctionSiteModelStoreContainer" CdmEntityContainer="AuctionSiteEntities">
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="AuctionSiteModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="idAddress" ColumnName="idAddress" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="phoneNo" ColumnName="phoneNo" />
+                <ScalarProperty Name="apartment" ColumnName="apartment" />
+                <ScalarProperty Name="building" ColumnName="building" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="town" ColumnName="town" />
+                <ScalarProperty Name="postCode" ColumnName="postCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Auction">
+            <EntityTypeMapping TypeName="AuctionSiteModel.Auction">
+              <MappingFragment StoreEntitySet="Auction">
+                <ScalarProperty Name="idAuction" ColumnName="idAuction" />
+                <ScalarProperty Name="idUserSeller" ColumnName="idUserSeller" />
+                <ScalarProperty Name="idProductCategory" ColumnName="idProductCategory" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuctionDescription">
+            <EntityTypeMapping TypeName="AuctionSiteModel.AuctionDescription">
+              <MappingFragment StoreEntitySet="AuctionDescription">
+                <ScalarProperty Name="idAuctionDescription" ColumnName="idAuctionDescription" />
+                <ScalarProperty Name="idAuction" ColumnName="idAuction" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="startingBiddingPrice" ColumnName="startingBiddingPrice" />
+                <ScalarProperty Name="buyNowPrice" ColumnName="buyNowPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BiddingOffer">
+            <EntityTypeMapping TypeName="AuctionSiteModel.BiddingOffer">
+              <MappingFragment StoreEntitySet="BiddingOffer">
+                <ScalarProperty Name="idBiddingOffer" ColumnName="idBiddingOffer" />
+                <ScalarProperty Name="idAuction" ColumnName="idAuction" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatAuction">
+            <EntityTypeMapping TypeName="AuctionSiteModel.ChatAuction">
+              <MappingFragment StoreEntitySet="ChatAuction">
+                <ScalarProperty Name="idChatAuction" ColumnName="idChatAuction" />
+                <ScalarProperty Name="idAuction" ColumnName="idAuction" />
+                <ScalarProperty Name="idUserSender" ColumnName="idUserSender" />
+                <ScalarProperty Name="idUserReciver" ColumnName="idUserReciver" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatReport">
+            <EntityTypeMapping TypeName="AuctionSiteModel.ChatReport">
+              <MappingFragment StoreEntitySet="ChatReport">
+                <ScalarProperty Name="idChatReport" ColumnName="idChatReport" />
+                <ScalarProperty Name="idReport" ColumnName="idReport" />
+                <ScalarProperty Name="idUserSender" ColumnName="idUserSender" />
+                <ScalarProperty Name="idUserReciver" ColumnName="idUserReciver" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryMethod">
+            <EntityTypeMapping TypeName="AuctionSiteModel.DeliveryMethod">
+              <MappingFragment StoreEntitySet="DeliveryMethod">
+                <ScalarProperty Name="idDeliveryMethod" ColumnName="idDeliveryMethod" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="fee" ColumnName="fee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginHistory">
+            <EntityTypeMapping TypeName="AuctionSiteModel.LoginHistory">
+              <MappingFragment StoreEntitySet="LoginHistory">
+                <ScalarProperty Name="idLogin" ColumnName="idLogin" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="device" ColumnName="device" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethod">
+            <EntityTypeMapping TypeName="AuctionSiteModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="idPaymentMethod" ColumnName="idPaymentMethod" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="amountFee" ColumnName="amountFee" />
+                <ScalarProperty Name="percentageFee" ColumnName="percentageFee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="AuctionSiteModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="idPermissions" ColumnName="idPermissions" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preferences">
+            <EntityTypeMapping TypeName="AuctionSiteModel.Preferences">
+              <MappingFragment StoreEntitySet="Preferences">
+                <ScalarProperty Name="idPreferences" ColumnName="idPreferences" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="darkMode" ColumnName="darkMode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategory">
+            <EntityTypeMapping TypeName="AuctionSiteModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="idProductCategory" ColumnName="idProductCategory" />
+                <ScalarProperty Name="idParentCategory" ColumnName="idParentCategory" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPhoto">
+            <EntityTypeMapping TypeName="AuctionSiteModel.ProductPhoto">
+              <MappingFragment StoreEntitySet="ProductPhoto">
+                <ScalarProperty Name="idPhoto" ColumnName="idPhoto" />
+                <ScalarProperty Name="idAuction" ColumnName="idAuction" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchase">
+            <EntityTypeMapping TypeName="AuctionSiteModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="idPurchase" ColumnName="idPurchase" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idAuction" ColumnName="idAuction" />
+                <ScalarProperty Name="idPaymentMethod" ColumnName="idPaymentMethod" />
+                <ScalarProperty Name="idDeliveryMethod" ColumnName="idDeliveryMethod" />
+                <ScalarProperty Name="idBuyerAddress" ColumnName="idBuyerAddress" />
+                <ScalarProperty Name="idSellerAddress" ColumnName="idSellerAddress" />
+                <ScalarProperty Name="idPurchaseStatus" ColumnName="idPurchaseStatus" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseStatus">
+            <EntityTypeMapping TypeName="AuctionSiteModel.PurchaseStatus">
+              <MappingFragment StoreEntitySet="PurchaseStatus">
+                <ScalarProperty Name="idPurchaseStatus" ColumnName="idPurchaseStatus" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report">
+            <EntityTypeMapping TypeName="AuctionSiteModel.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="idReport" ColumnName="idReport" />
+                <ScalarProperty Name="idReportCategory" ColumnName="idReportCategory" />
+                <ScalarProperty Name="idReportStatus" ColumnName="idReportStatus" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="idUserReporting" ColumnName="idUserReporting" />
+                <ScalarProperty Name="idAuctionReported" ColumnName="idAuctionReported" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportCategory">
+            <EntityTypeMapping TypeName="AuctionSiteModel.ReportCategory">
+              <MappingFragment StoreEntitySet="ReportCategory">
+                <ScalarProperty Name="idReportCategory" ColumnName="idReportCategory" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportStatus">
+            <EntityTypeMapping TypeName="AuctionSiteModel.ReportStatus">
+              <MappingFragment StoreEntitySet="ReportStatus">
+                <ScalarProperty Name="idReportStatus" ColumnName="idReportStatus" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityRanking">
+            <EntityTypeMapping TypeName="AuctionSiteModel.CityRanking">
+              <MappingFragment StoreEntitySet="CityRanking">
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="DeliveredOrders" ColumnName="DeliveredOrders" />
+                <ScalarProperty Name="ShippedOrdes" ColumnName="ShippedOrdes" />
+                <ScalarProperty Name="Users" ColumnName="Users" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LatestAuctionDescription">
+            <EntityTypeMapping TypeName="AuctionSiteModel.LatestAuctionDescription">
+              <MappingFragment StoreEntitySet="LatestAuctionDescription">
+                <ScalarProperty Name="idAuctionDescription" ColumnName="idAuctionDescription" />
+                <ScalarProperty Name="idAuction" ColumnName="idAuction" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="startingBiddingPrice" ColumnName="startingBiddingPrice" />
+                <ScalarProperty Name="buyNowPrice" ColumnName="buyNowPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateUser" FunctionName="AuctionSiteModel.Store.CreateUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AuctionSiteModel.CreateUser_Result">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="message" ColumnName="message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="AuctionSiteModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="AuctionSiteModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="AuctionSiteModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="AuctionSiteModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AuctionSiteModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="AuctionSiteModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AuctionSiteModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="AuctionSiteModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="AuctionSiteModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="CreateAuction" FunctionName="AuctionSiteModel.Store.CreateAuction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AuctionSiteModel.CreateAuction_Result">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="message" ColumnName="message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AuctionSiteModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvargeUserRating">
+            <EntityTypeMapping TypeName="AuctionSiteModel.AvargeUserRating">
+              <MappingFragment StoreEntitySet="AvargeUserRating">
+                <ScalarProperty Name="ShippingTime" ColumnName="ShippingTime" />
+                <ScalarProperty Name="TrueDescription" ColumnName="TrueDescription" />
+                <ScalarProperty Name="BuyerService" ColumnName="BuyerService" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="idUserSeller" ColumnName="idUserSeller" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="AuctionSiteModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="idPurchase" ColumnName="idPurchase" />
+                <ScalarProperty Name="shippingTime" ColumnName="shippingTime" />
+                <ScalarProperty Name="trueDescription" ColumnName="trueDescription" />
+                <ScalarProperty Name="buyerService" ColumnName="buyerService" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="idRating" ColumnName="idRating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="AuctionSiteModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="idPermissions" ColumnName="idPermissions" />
+                <ScalarProperty Name="idDefaultAddress" ColumnName="idDefaultAddress" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

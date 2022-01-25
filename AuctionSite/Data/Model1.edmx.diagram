@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="271ee0bf8162430491c0998d54bb7843" Name="Diagram1" ZoomLevel="106">
+        <EntityTypeShape EntityType="AuctionSiteModel.Address" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.Auction" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.AuctionDescription" Width="1.5" PointX="7.5" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.BiddingOffer" Width="1.5" PointX="10.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.ChatAuction" Width="1.5" PointX="10.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.ChatReport" Width="1.5" PointX="12.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.DeliveryMethod" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.LoginHistory" Width="1.5" PointX="5.25" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.PaymentMethod" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.Permissions" Width="1.5" PointX="0.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.Preferences" Width="1.5" PointX="5.25" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.ProductCategory" Width="1.5" PointX="2.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.ProductPhoto" Width="1.5" PointX="7.5" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.Purchase" Width="1.5" PointX="7.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.PurchaseStatus" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.Report" Width="1.5" PointX="10.5" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.ReportCategory" Width="1.5" PointX="8.25" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.ReportStatus" Width="1.5" PointX="8.25" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.CityRanking" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AuctionSiteModel.LatestAuctionDescription" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="AuctionSiteModel.FK_PurchaseDelivery_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_PurchaseShipping_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Auction_ProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_AuctionDescription_Auction" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_BiddingOffer_Auction" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ChatAuction_Auction" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ProductPhoto_Auction" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Purchase_Auction" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Report_Auction" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ChatReport_Report" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Purchase_DeliveryMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Purchase_PaymentMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ProductCategory_ParentCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Purchase_PurchaseStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Report_ReportCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Report_ReportStatus" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AuctionSiteModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AuctionSiteModel.AvargeUserRating" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AuctionSiteModel.Rating" Width="1.5" PointX="9.75" PointY="8.5" />
+        <EntityTypeShape EntityType="AuctionSiteModel.User" Width="1.5" PointX="7.5" PointY="7.25" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Address_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_User_Address" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Auction_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_BiddingOffer_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ChatAuctionReciver_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ChatAuctionSender_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ChatReport_UserReciver" />
+        <AssociationConnector Association="AuctionSiteModel.FK_ChatReport_UserSender" />
+        <AssociationConnector Association="AuctionSiteModel.FK_LoginHistory_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_User_Permissions" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Preferences_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Purchase_User" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Rating_Purchase" />
+        <AssociationConnector Association="AuctionSiteModel.FK_Report_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
